@@ -12,6 +12,7 @@
  */
 
 import Foundation
+import Crashlytics
 
 public enum GureumInputSourceIdentifier: String {
     case qwerty = "org.youknowone.inputmethod.Gureum.qwerty"

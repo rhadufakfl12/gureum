@@ -2621,3 +2621,4 @@ zipper-mouth face:🤐:zipper-mouth face
 zombie:🧟:zombie
 zzz:💤:zzz
 Åland Islands:🇦🇽:Åland Islands
+command:👉:command:go go 

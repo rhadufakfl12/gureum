@@ -44,7 +44,10 @@ def generate_emoji(filename: str = 'emoji-test.txt') -> int:
 
     for line in qualified_lines:
         data.append(_get_emoji_data(line))
-
+    print(data)
+    
+    
+    
     data.sort()  # XXX: search uses binary search algorithm
 
     with open('emoji.txt', 'w') as file:
@@ -128,6 +131,7 @@ class TestGenerateemoji(unittest.TestCase):
             '1F469 1F3FC                                ; fully-qualified     # 👩🏼 woman: medium-light skin tone',
             '1F469 200D 2695 FE0F                       ; fully-qualified     # 👩‍⚕️ woman health worker',
             '1F3CA 1F3FB 200D 2642 FE0F                 ; fully-qualified     # 🏊🏻‍♂️ man swimming: light skin tone',
+            '1F449                                      ; fully-qualified     # 👉 command: go go',
         ]
 
         desc, unicode, emoji = _get_emoji_data(lines[0])
@@ -150,6 +154,15 @@ class TestGenerateemoji(unittest.TestCase):
         self.assertEqual(unicode, '1F3CA 1F3FB 200D 2642 FE0F')
         self.assertEqual(emoji, '🏊🏻‍♂️')
         self.assertEqual(desc, 'man swimming; light skin tone')
+            
+           """
+            desc, unicode, emoji = _get_emoji_data(lines[5])
+            self.assertEqual(unicode, '2318')
+            self.assertEqual(emoji, '⌘')
+            self.assertEqual(desc, 'command')"""
+
+
+
 
 
 if __name__ == '__main__':

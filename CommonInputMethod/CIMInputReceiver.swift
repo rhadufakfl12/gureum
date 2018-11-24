@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import Crashlytics
 
 
 @objcMembers class CIMInputReceiver: NSObject, CIMInputTextDelegate {
@@ -175,8 +176,9 @@ extension CIMInputReceiver { // IMKStateSetting
     
     //! @brief 자판 전환을 감지한다.
     open func setValue(_ value: Any!, forTag tag: Int, client sender: Any!, controller: CIMInputController) {
-        dlog(DEBUG_LOGGING, "LOGGING::EVENT::CHANGE-%lu-%@", tag, value as? String ?? "(nonstring)");
-        dlog(DEBUG_INPUTCONTROLLER, "** CIMInputController -setValue:forTag:client: with value: %@ / tag: %lx / client: %@", value as? String ?? "(nonstring)", tag, (controller.client as? NSObject) ?? "(nil)");
+        dlog(DEBUG_LOGGING, "LOGGING::EVENT::CHANGE-%lu-%@", tag, value as? String ?? "(nonstring)")
+        dlog(DEBUG_INPUTCONTROLLER, "** CIMInputController -setValue:forTag:client: with value: %@ / tag: %lx / client: %@", value as? String ?? "(nonstring)", tag, (controller.client as? NSObject) ?? "(nil)")
+        
         switch tag {
             case kTextServiceInputModePropertyTag:
                 guard let value = value as? String else {
@@ -187,12 +189,13 @@ extension CIMInputReceiver { // IMKStateSetting
                     self.commitComposition(sender, controller:controller)
                     self.composer.inputMode = value
                 }
+                Answers.logContentView(withName: value, contentType: "InputMode", contentId: value, customAttributes: [:])
             default:
-                dlog(true, "**** UNKNOWN TAG %ld !!! ****", tag);
+                dlog(true, "**** UNKNOWN TAG %ld !!! ****", tag)
         }
         
-        dlog(true, "==== source");
-        return;
+        dlog(true, "==== source")
+        return
         
         // 미국자판으로 기본자판 잡는 것도 임시로 포기
         /*
